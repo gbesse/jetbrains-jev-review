@@ -12,7 +12,7 @@ This project follows the current IntelliJ Platform 2.x toolchain and targets Int
 gradle test buildPlugin
 ```
 
-Java 21 and Gradle 9 are required. The packaged plugin is produced under `build/distributions`. This machine only has a legacy Java runtime, so the definitive build is performed by the included GitHub Actions workflow rather than claimed locally.
+Java 25 and Gradle 9 are required by the targeted 2026.2 platform. The packaged plugin is produced under `build/distributions`. This machine only has a legacy Java runtime, so the definitive build is performed by the included GitHub Actions workflow rather than claimed locally.
 
 ## Boundaries
 

@@ -6,7 +6,7 @@ plugins {
 group = "org.jev"
 version = "0.1.0"
 
-java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
 
 dependencies {
     intellijPlatform {
