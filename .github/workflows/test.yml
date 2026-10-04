@@ -11,3 +11,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v5
         with: { gradle-version: "9.4.1" }
       - run: gradle test buildPlugin
+      - uses: actions/upload-artifact@v6
+        with:
+          name: jetbrains-jev-review-plugin
+          path: build/distributions/*.zip
