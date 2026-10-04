@@ -9,7 +9,7 @@ import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.editor.colors.EditorColors;
+import com.intellij.openapi.editor.colors.CodeInsightColors;
 import com.intellij.openapi.ui.Messages;
 import java.util.concurrent.CompletableFuture;
 
@@ -22,7 +22,8 @@ public final class ReviewSelectionAction extends AnAction {
     }
 
     @Override public void actionPerformed(AnActionEvent event) {
-        var editor = event.getRequiredData(com.intellij.openapi.actionSystem.CommonDataKeys.EDITOR);
+        var editor = event.getData(com.intellij.openapi.actionSystem.CommonDataKeys.EDITOR);
+        if (editor == null) return;
         var project = event.getProject(); var selection = editor.getSelectionModel();
         var document = editor.getDocument(); long stamp = document.getModificationStamp();
         var lines = ReviewCore.selectedLines(selection.getSelectedText(), document.getLineNumber(selection.getSelectionStart()), selection.getSelectionStart());
@@ -39,7 +40,7 @@ public final class ReviewSelectionAction extends AnAction {
                 if (error != null) { notify(project, error.getCause() == null ? error.getMessage() : error.getCause().getMessage(), NotificationType.ERROR); return; }
                 if (document.getModificationStamp() != stamp) { notify(project, "Selection changed while review was running; stale findings were discarded.", NotificationType.WARNING); return; }
                 var highlighters = new java.util.ArrayList<com.intellij.openapi.editor.markup.RangeHighlighter>();
-                for (var finding : findings) HighlightManager.getInstance(project).addRangeHighlight(editor, finding.line().startOffset(), finding.line().endOffset(), EditorColors.WARNING_ATTRIBUTES, false, highlighters);
+                for (var finding : findings) HighlightManager.getInstance(project).addRangeHighlight(editor, finding.line().startOffset(), finding.line().endOffset(), CodeInsightColors.WARNINGS_ATTRIBUTES, false, highlighters);
                 notify(project, findings.isEmpty() ? "No declared issue cleared the threshold." : findings.size() + " exact line(s) highlighted: " + findings.stream().map(ReviewCore.Finding::label).toList(), findings.isEmpty() ? NotificationType.INFORMATION : NotificationType.WARNING);
             }));
     }
