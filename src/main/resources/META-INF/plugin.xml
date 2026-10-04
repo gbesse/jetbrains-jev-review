@@ -1,0 +1,17 @@
+<idea-plugin>
+    <id>org.jev.jetbrains-review</id>
+    <name>Jev Exact Selection Review</name>
+    <vendor url="https://github.com/gbesse">Guillaume Besse</vendor>
+    <description><![CDATA[
+      Review selected code with declared, finite Jev checks and highlight only exact lines from the selection.
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="Jev Review" displayType="BALLOON" isLogByDefault="true"/>
+    </extensions>
+    <actions>
+        <action id="Jev.ReviewSelection" class="org.jev.review.ReviewSelectionAction" text="Review Selection with Jev" description="Run typed Jev checks on selected lines">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
