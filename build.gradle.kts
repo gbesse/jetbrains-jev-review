@@ -11,7 +11,6 @@ java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
 dependencies {
     intellijPlatform {
         intellijIdea("2026.2.3")
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
 }
